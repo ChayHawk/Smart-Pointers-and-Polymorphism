@@ -56,10 +56,7 @@ class Animal
 
         virtual void Drink() = 0;
 
-        virtual void Sleep()
-        {
-            std::cout << "This animal is sleeping\n";
-        }
+        virtual void Sleep() = 0;
 
         virtual void UniqueSound() const = 0;
 
