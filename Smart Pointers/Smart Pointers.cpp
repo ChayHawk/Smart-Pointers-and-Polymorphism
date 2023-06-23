@@ -10,7 +10,7 @@ class Animal
         (
             const std::string& name,
             const std::string& gender,
-            const std::string type,
+            const std::string species,
             const std::string& pronoun,
             double weight,
             double thirst,
@@ -21,7 +21,7 @@ class Animal
             :
             mName(name),
             mGender(gender),
-            mType(type),
+            mSpecies(species),
             mPronoun(pronoun),
             mWeight(weight),
             mThirst(thirst),
@@ -70,9 +70,9 @@ class Animal
             return mGender;
         }
 
-        std::string GetType() const
+        std::string GetSpecies() const
         {
-            return mType;
+            return mSpecies;
         }
 
         std::string GetPronoun() const
@@ -107,7 +107,7 @@ class Animal
 
     protected:
 
-        double SubtractHunger(int amount)
+        double DecrementHunger(int amount)
         {
             if (amount >= 0)
             {
@@ -121,7 +121,7 @@ class Animal
             return amount;
         }
 
-        double SubtractThirst(int amount)
+        double DecrementThirst(int amount)
         {
             if (amount >= 0)
             {
@@ -135,7 +135,7 @@ class Animal
             return amount;
         }
 
-        double SubtractFatigue(int amount)
+        double DecrementFatigue(int amount)
         {
             if (amount >= 0)
             {
@@ -149,7 +149,7 @@ class Animal
             return amount;
         }
 
-        double AddHunger(int amount)
+        double IncrementHunger(int amount)
         {
             if (amount < 10)
             {
@@ -163,7 +163,7 @@ class Animal
             return amount;
         }
 
-        double AddThirst(int amount)
+        double IncrementThirst(int amount)
         {
             if (amount < 10)
             {
@@ -177,7 +177,7 @@ class Animal
             return amount;
         }
 
-        double AddFatigue(int amount)
+        double IncrementFatigue(int amount)
         {
             if (amount < 10)
             {
@@ -195,7 +195,7 @@ class Animal
     private:
         std::string mName{ "Animal Name" };
         std::string mGender{ "None" };
-        std::string mType{ "Animal Type" };
+        std::string mSpecies{ "Animal Species" };
         std::string mPronoun{ "Animal Pronoun" };
         double mWeight{ 0.0 };
         double mThirst{ 0 };
@@ -226,17 +226,17 @@ class Cow : public Animal
 
         void Eat() override
         {
-            std::cout << GetName() << " ate some food and gained -" << SubtractHunger(1) << " hunger!\n";
+            std::cout << GetName() << " ate some food and gained -" << DecrementHunger(1) << " hunger!\n";
         }
 
         void Drink() override
         {
-            std::cout << GetName() << " drank some water and gained -" << SubtractThirst(1) << " thirst!\n";
+            std::cout << GetName() << " drank some water and gained -" << DecrementThirst(1) << " thirst!\n";
         }
 
         void Sleep() override
         {
-            std::cout << GetName() << " got some sleep and gained -" << SubtractFatigue(1) << " fatigue!\n";
+            std::cout << GetName() << " got some sleep and gained -" << DecrementFatigue(1) << " fatigue!\n";
         }
 
         void UniqueSound() const override
@@ -267,17 +267,17 @@ class Dog : public Animal
 
         void Eat() override
         {
-            std::cout << GetName() << " ate some food and gained -" << SubtractHunger(1) << " hunger!\n";
+            std::cout << GetName() << " ate some food and gained -" << DecrementHunger(1) << " hunger!\n";
         }
 
         void Drink() override
         {
-            std::cout << GetName() << " drank some water and gained -" << SubtractThirst(1) << " thirst!\n";
+            std::cout << GetName() << " drank some water and gained -" << DecrementThirst(1) << " thirst!\n";
         }
 
         void Sleep() override
         {
-            std::cout << GetName() << " got some sleep and gained -" << SubtractFatigue(1) << " fatigue!\n";
+            std::cout << GetName() << " got some sleep and gained -" << DecrementFatigue(1) << " fatigue!\n";
         }
 
         void UniqueSound() const override
@@ -323,17 +323,17 @@ class Cat : public Animal
 
         void Eat() override
         {
-            std::cout << GetName() << " ate some food and gained -" << SubtractHunger(3) << " hunger!\n";
+            std::cout << GetName() << " ate some food and gained -" << DecrementHunger(3) << " hunger!\n";
         }
 
         void Drink() override
         {
-            std::cout << GetName() << " drank some water and gained -" << SubtractThirst(1) << " thirst!\n";
+            std::cout << GetName() << " drank some water and gained -" << DecrementThirst(1) << " thirst!\n";
         }
 
         void Sleep() override
         {
-            std::cout << GetName() << " got some sleep and gained -" << SubtractFatigue(1) << " fatigue!\n";
+            std::cout << GetName() << " got some sleep and gained -" << DecrementFatigue(1) << " fatigue!\n";
         }
 
         void UniqueSound() const override
@@ -451,11 +451,13 @@ void DisplayOutput(const Animal* animal)
 {
     if (IsNull(animal) == false)
     {
-        std::cout << "This animal is a " << animal->GetGender() << " " << animal->GetType() << " named " << animal->GetName();
-        std::cout << " and " << animal->GetPronoun() << " says ";
-        animal->Speak();
+        std::cout << "Basic Info About " << animal->GetName() << "\n\n";
 
-        std::cout << animal->GetName() << " weighs " << animal->GetWeight() << " lbs and has " << animal->GetEyeColor() << " eyes.\n";
+        std::cout << "Name: " << animal->GetName() << '\n';
+        std::cout << "Species: " << animal->GetSpecies() << '\n';
+        std::cout << "Gender: " << animal->GetGender() << '\n';
+        std::cout << "Weight: " << animal->GetWeight() << " lbs\n";
+        std::cout << "Eye Color: " << animal->GetEyeColor() << "\n\n";
     }
     else
     {
@@ -484,7 +486,7 @@ int main()
 
     std::cout << '\n';
 
-    IsNull(fido.get());
+    DisplayOutput(fido.get());
     fido->AdditionalInfo();
     fido->Fall();
     fido->Move();
@@ -495,7 +497,7 @@ int main()
 
     std::cout << '\n';
 
-    IsNull(bessie.get());
+    DisplayOutput(bessie.get());
     bessie->AdditionalInfo();
     bessie->Fall();
     bessie->Move();
