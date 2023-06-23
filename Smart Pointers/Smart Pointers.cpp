@@ -110,7 +110,7 @@ class Animal
 
     protected:
 
-        void SubtractHunger(int amount)
+        double SubtractHunger(int amount)
         {
             if (amount >= 0)
             {
@@ -120,9 +120,11 @@ class Animal
             {
                 mHunger = 0;
             }
+
+            return amount;
         }
 
-        void SubtractThirst(int amount)
+        double SubtractThirst(int amount)
         {
             if (amount >= 0)
             {
@@ -132,9 +134,11 @@ class Animal
             {
                 mThirst = 0;
             }
+
+            return amount;
         }
 
-        void SubtractFatigue(int amount)
+        double SubtractFatigue(int amount)
         {
             if (amount >= 0)
             {
@@ -144,9 +148,11 @@ class Animal
             {
                 mFatigue = 0;
             }
+
+            return amount;
         }
 
-        void AddHunger(int amount)
+        double AddHunger(int amount)
         {
             if (amount < 10)
             {
@@ -156,9 +162,11 @@ class Animal
             {
                 mHunger = 10;
             }
+
+            return amount;
         }
 
-        void AddThirst(int amount)
+        double AddThirst(int amount)
         {
             if (amount < 10)
             {
@@ -168,9 +176,11 @@ class Animal
             {
                 mThirst = 10;
             }
+
+            return amount;
         }
 
-        void AddFatigue(int amount)
+        double AddFatigue(int amount)
         {
             if (amount < 10)
             {
@@ -180,6 +190,8 @@ class Animal
             {
                 mFatigue = 10;
             }
+
+            return amount;
         }
 
 
@@ -217,20 +229,17 @@ class Cow : public Animal
 
         void Eat() override
         {
-            std::cout << GetName() << " ate some food and gained -1 hunger!\n";
-            SubtractHunger(1);
+            std::cout << GetName() << " ate some food and gained -" << SubtractHunger(1) << " hunger!\n";
         }
 
         void Drink() override
         {
-            std::cout << GetName() << " drank some water and gained -1 thirst!\n";
-            SubtractThirst(1);
+            std::cout << GetName() << " drank some water and gained -" << SubtractThirst(1) << " thirst!\n";
         }
 
         void Sleep() override
         {
-            std::cout << GetName() << " got some sleep and gained -1 fatigue!\n";
-            SubtractFatigue(1);
+            std::cout << GetName() << " got some sleep and gained -" << SubtractFatigue(1) << " fatigue!\n";
         }
 
         void UniqueSound() const override
@@ -261,20 +270,17 @@ class Dog : public Animal
 
         void Eat() override
         {
-            std::cout << GetName() << " ate some food and gained -1 hunger!\n";
-            SubtractHunger(1);
+            std::cout << GetName() << " ate some food and gained -" << SubtractHunger(1) << " hunger!\n";
         }
 
         void Drink() override
         {
-            std::cout << GetName() << " drank some water and gained -1 thirst!\n";
-            SubtractThirst(1);
+            std::cout << GetName() << " drank some water and gained -" << SubtractThirst(1) << " thirst!\n";
         }
 
         void Sleep() override
         {
-            std::cout << GetName() << " got some sleep and gained -1 fatigue!\n";
-            SubtractFatigue(1);
+            std::cout << GetName() << " got some sleep and gained -" << SubtractFatigue(1) << " fatigue!\n";
         }
 
         void UniqueSound() const override
@@ -320,20 +326,17 @@ class Cat : public Animal
 
         void Eat() override
         {
-            std::cout << GetName() << " ate some food and gained -1 hunger!\n";
-            SubtractHunger(1);
+            std::cout << GetName() << " ate some food and gained -" << SubtractHunger(3) << " hunger!\n";
         }
 
         void Drink() override
         {
-            std::cout << GetName() << " drank some water and gained -1 thirst!\n";
-            SubtractThirst(1);
+            std::cout << GetName() << " drank some water and gained -" << SubtractThirst(1) << " thirst!\n";
         }
 
         void Sleep() override
         {
-            std::cout << GetName() << " got some sleep and gained -1 fatigue!\n";
-            SubtractFatigue(1);
+            std::cout << GetName() << " got some sleep and gained -" << SubtractFatigue(1) << " fatigue!\n";
         }
 
         void UniqueSound() const override
@@ -391,32 +394,17 @@ std::ostream& operator<<(std::ostream& os, Animal::EyeColor eyeColor)
     return os;
 }
 
-void CheckForNull(const Animal* animal)
+bool IsNull(const Animal* animal)
 {
     if (animal == nullptr)
     {
         std::cout << "Pointer has been reset to null!\n";
+        return true;
     }
     else
     {
-        std::cout << "This animal is a " << animal->GetGender() << " " << animal->GetType() << " named " << animal->GetName();
-        std::cout << " and " << animal->GetPronoun() << " says ";
-        animal->Speak();
-
-        std::cout << animal->GetName() << " weighs " << animal->GetWeight() << " lbs and has " << animal->GetEyeColor() << " eyes.\n";
-    }
-}
-
-template <typename Derived>
-void AccessDerivedMember(const Animal* animal)
-{
-    if (const auto dc{ dynamic_cast<const Derived*>(animal) }; dc)
-    {
-        dc->LandOnFeet();
-    }
-    else
-    {
-        std::cout << "Invalid cast.\n\n";
+        std::cout << "Pointer is not null\n";
+        return false;
     }
 }
 
@@ -424,12 +412,12 @@ void CheckHungerLevel(const Animal* animal)
 {
     if (animal->GetHunger() >= 6)
     {
-        std::cout << animal->GetName() << "s hunger level is " << animal->GetHunger() << " ";
+        std::cout << animal->GetName() << "'s hunger level is " << animal->GetHunger() << ", ";
         std::cout << animal->GetName() << " is really hungry!\n";
     }
     else
     {
-        std::cout << animal->GetName() << "s hunger level is " << animal->GetHunger() << " ";
+        std::cout << animal->GetName() << "'s hunger level is " << animal->GetHunger() << ", ";
         std::cout << animal->GetName() << " is not that hungry.\n";
     }
 }
@@ -438,12 +426,12 @@ void CheckThirstLevel(const Animal* animal)
 {
     if (animal->GetThirst() >= 6)
     {
-        std::cout << animal->GetName() << "s thirst level is " << animal->GetThirst() << " ";
+        std::cout << animal->GetName() << "'s thirst level is " << animal->GetThirst() << ", ";
         std::cout << animal->GetName() << " is really thirsty!\n";
     }
     else
     {
-        std::cout << animal->GetName() << "s thirst level is " << animal->GetThirst() << " ";
+        std::cout << animal->GetName() << "s thirst level is " << animal->GetThirst() << ", ";
         std::cout << animal->GetName() << " is not that thirsty.\n";
     }
 }
@@ -452,13 +440,29 @@ void CheckFatgueLevel(const Animal* animal)
 {
     if (animal->GetFatigue() >= 6)
     {
-        std::cout << animal->GetName() << "s fatigue level is " << animal->GetFatigue() << " ";
+        std::cout << animal->GetName() << "'s fatigue level is " << animal->GetFatigue() << ", ";
         std::cout << animal->GetName() << " is really tired!\n";
     }
     else
     {
-        std::cout << animal->GetName() << "s fatigue level is " << animal->GetFatigue() << " ";
+        std::cout << animal->GetName() << "'s fatigue level is " << animal->GetFatigue() << " ";
         std::cout << animal->GetName() << " is not that tired.\n";
+    }
+}
+
+void DisplayOutput(const Animal* animal)
+{
+    if (IsNull(animal) == false)
+    {
+        std::cout << "This animal is a " << animal->GetGender() << " " << animal->GetType() << " named " << animal->GetName();
+        std::cout << " and " << animal->GetPronoun() << " says ";
+        animal->Speak();
+
+        std::cout << animal->GetName() << " weighs " << animal->GetWeight() << " lbs and has " << animal->GetEyeColor() << " eyes.\n";
+    }
+    else
+    {
+        std::cout << "Error, pointer is null\n";
     }
 }
 
@@ -470,7 +474,7 @@ int main()
 
     //wiskers.reset();
 
-    CheckForNull(wiskers.get());
+    DisplayOutput(wiskers.get());
     wiskers->AdditionalInfo();
     wiskers->Fall();
     wiskers->Move();
@@ -483,11 +487,7 @@ int main()
 
     std::cout << '\n';
 
-    //AccessDerivedMember<Cat>(wiskers.get());
-    //AccessDerivedMember<Cat>(fido.get()); //Will cause an invalid cast
-
-
-    CheckForNull(fido.get());
+    IsNull(fido.get());
     fido->AdditionalInfo();
     fido->Fall();
     fido->Move();
@@ -498,7 +498,7 @@ int main()
 
     std::cout << '\n';
 
-    CheckForNull(bessie.get());
+    IsNull(bessie.get());
     bessie->AdditionalInfo();
     bessie->Fall();
     bessie->Move();
