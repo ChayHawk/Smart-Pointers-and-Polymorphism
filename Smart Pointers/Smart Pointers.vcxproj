@@ -128,7 +128,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="AnimalMonitor.cpp" />
+    <ClCompile Include="Cat.cpp" />
+    <ClCompile Include="Cow.cpp" />
+    <ClCompile Include="Dog.cpp" />
     <ClCompile Include="Smart Pointers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animal.h" />
+    <ClInclude Include="AnimalMonitor.h" />
+    <ClInclude Include="Cat.h" />
+    <ClInclude Include="Cow.h" />
+    <ClInclude Include="Dog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
