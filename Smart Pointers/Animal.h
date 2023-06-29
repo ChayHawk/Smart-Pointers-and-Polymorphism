@@ -20,8 +20,7 @@ class Animal
             double hunger,
             double fatigue,
             EyeColor eyeColor
-        )
-            :
+        ):
             mName(name),
             mGender(gender),
             mSpecies(species),
@@ -51,6 +50,7 @@ class Animal
 
         virtual void UniqueSound() const = 0;
 
+
         std::string GetName() const;
 
         std::string GetGender() const;
@@ -58,6 +58,7 @@ class Animal
         std::string GetSpecies() const;
 
         std::string GetPronoun() const;
+
 
         double GetWeight() const;
 
@@ -89,10 +90,12 @@ class Animal
         std::string mGender{ "None" };
         std::string mSpecies{ "Animal Species" };
         std::string mPronoun{ "Animal Pronoun" };
+
         double mWeight{ 0.0 };
         double mThirst{ 0 };
         double mHunger{ 0 };
         double mFatigue{ 0 };
+
         EyeColor mEyeColor{ EyeColor::Gray };
 
         //We can use a single variable for all stats here as all stats max out at 10.

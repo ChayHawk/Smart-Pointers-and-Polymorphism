@@ -7,11 +7,29 @@
 #include "Cat.h"
 #include "AnimalMonitor.h"
 
+struct AnimalVars
+{
+    double weight;
+    double thirst;
+    double hunger;
+    double fatigue;
+};
+
+struct CatVars : AnimalVars
+{
+    int lives;
+};
+
 int main()
 {
-    std::unique_ptr<Animal> wiskers{ std::make_unique<Cat>("Wiskers", "Male", "Cat", "He", 5, 5, 7, 5, 9, Animal::EyeColor::Yellow ) };
-    std::unique_ptr<Animal> fido{ std::make_unique<Dog>("Fido", "Female", "Dog", "She", 20, 3, 1, 8, Animal::EyeColor::Blue ) };
-    std::unique_ptr<Animal> bessie{ std::make_unique<Cow>("Bessie", "Female", "Cow", "She", 900, 1, 6, 2, Animal::EyeColor::Brown ) };
+    CatVars wiskersVars = { 5, 5, 7, 5, 9 };
+    std::unique_ptr<Animal> wiskers{ std::make_unique<Cat>("Wiskers", "Male", "Cat", "He", wiskersVars.weight, wiskersVars.thirst, wiskersVars.hunger, wiskersVars.fatigue, Animal::EyeColor::Yellow, wiskersVars.lives ) };
+
+    AnimalVars fidoVars = { 20, 3, 8, 8 };
+    std::unique_ptr<Animal> fido{ std::make_unique<Dog>("Fido", "Female", "Dog", "She", fidoVars.weight, fidoVars.thirst, fidoVars.hunger, fidoVars.fatigue, Animal::EyeColor::Blue ) };
+
+    AnimalVars bessieVars = { 900, 1, 6, 2 };
+    std::unique_ptr<Animal> bessie{ std::make_unique<Cow>("Bessie", "Female", "Cow", "She", bessieVars.weight, bessieVars.thirst, bessieVars.hunger, bessieVars.fatigue, Animal::EyeColor::Brown ) };
 
     //The closer to 0 an animals stat is the better, the closer to 10, the worse.
 
