@@ -56,7 +56,7 @@ void AnimalMonitor::CheckFatgueLevel(const Animal* animal)
     }
 }
 
-void AnimalMonitor::DisplayOutput(const Animal* animal)
+void AnimalMonitor::DisplayInfo(const Animal* animal)
 {
     if (IsNull(animal) == false)
     {
@@ -72,4 +72,18 @@ void AnimalMonitor::DisplayOutput(const Animal* animal)
     {
         std::cout << "Error, pointer is null\n";
     }
+}
+
+void AnimalMonitor::Output(Animal* animal)
+{
+    DisplayInfo(animal);
+    animal->AdditionalInfo();
+    animal->Fall();
+    animal->Move();
+    AnimalMonitor::CheckHungerLevel(animal);
+    animal->Eat();
+    AnimalMonitor::CheckHungerLevel(animal);
+    animal->Drink();
+    animal->Sleep();
+    animal->UniqueSound();
 }
