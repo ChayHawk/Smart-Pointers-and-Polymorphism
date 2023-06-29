@@ -17,11 +17,11 @@ class Cat : public Animal
             double thirst,
             double hunger,
             double fatigue,
-            int lives,
-            EyeColor eyeColor
-        )
-            :
-            Animal{ name, gender, type, pronoun, weight, thirst, hunger, fatigue, eyeColor }, mLives(lives)
+            EyeColor eyeColor,
+            int lives
+        ):
+            Animal{ name, gender, type, pronoun, weight, thirst, hunger, fatigue, eyeColor }, 
+            mLives(lives)
         {}
 
         void Speak() const override;
