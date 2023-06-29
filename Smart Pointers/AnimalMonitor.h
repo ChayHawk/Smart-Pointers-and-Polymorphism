@@ -12,5 +12,7 @@ namespace AnimalMonitor
 
     void CheckFatgueLevel(const Animal* animal);
 
-    void DisplayOutput(const Animal* animal);
+    void DisplayInfo(const Animal* animal);
+
+    void Output(Animal* animal);
 }
